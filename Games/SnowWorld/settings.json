@@ -1,0 +1,17 @@
+{
+"maxPlayers": 2,
+"controls": [
+    {
+    "a":    { "innerHTML":"J", "isKeyboard":true, "data":[74, "j", "KeyJ"] },
+    "b":	  { "innerHTML":"K", "isKeyboard":true, "data":[75, "k", "KeyK"] }
+    },
+    {
+    "a":    { "innerHTML":"X", "isKeyboard":true, "data":[88, "x", "KeyX"] },
+    "b":	  { "innerHTML":"C", "isKeyboard":true, "data":[67, "c", "KeyC"] }
+    }],
+"aspect": "1.5",
+"relLocation": "index.html",
+"loadUnityGame": false,
+"canvasID": "game_canvas",
+"controllerLocation": "https://openconsole.github.io/Controllers/two_button.html"
+}

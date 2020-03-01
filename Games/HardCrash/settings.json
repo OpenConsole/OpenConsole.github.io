@@ -1,0 +1,46 @@
+{
+"maxPlayers": 4,
+"controls": [
+    {
+    "Up":   { "isKeyboard":true, "data":[38, "ArrowUp", "ArrowUp"] },
+    "Left": { "isKeyboard":true, "data":[37, "ArrowLeft", "ArrowLeft"] },
+    "Down": { "isKeyboard":true, "data":[40, "ArrowDown", "ArrowDown"] },
+    "Right":{ "isKeyboard":true, "data":[39, "ArrowRight", "ArrowRight"] },
+    "a":    { "isKeyboard":true, "data":[13, "Enter", "Enter"] },
+    "b":    { "isKeyboard":true, "data":[8, "Backspace", "Backspace"] },
+    "Escape":{"isKeyboard":true, "data":[27, "Escape", "Escape"] },
+    "Start":{ "isKeyboard":false,"data":["0.5", "0.55", "0"] }
+    },
+    {
+    "Up":   { "isKeyboard":true, "data":[87, "w", "KeyW"] },
+    "Left": { "isKeyboard":true, "data":[65, "a", "KeyA"] },
+    "Down": { "isKeyboard":true, "data":[83, "s", "KeyS"] },
+    "Right":{ "isKeyboard":true, "data":[68, "d", "KeyD"] },
+    "a":    { "isKeyboard":true, "data":[69, "e", "KeyE"] },
+    "b":    { "isKeyboard":true, "data":[81, "q", "KeyQ"] },
+    "Escape":{"isKeyboard":true, "data":[27, "Escape", "Escape"] }
+    },
+    {
+    "Up":   { "isKeyboard":true, "data":[85, "u", "KeyU"] },
+    "Left": { "isKeyboard":true, "data":[72, "h", "KeyH"] },
+    "Down": { "isKeyboard":true, "data":[74, "j", "KeyJ"] },
+    "Right":{ "isKeyboard":true, "data":[75, "k", "KeyK"] },
+    "a":    { "isKeyboard":true, "data":[73, "i", "KeyI"] },
+    "b":    { "isKeyboard":true, "data":[89, "y", "KeyY"] },
+    "Escape":{"isKeyboard":true, "data":[27, "Escape", "Escape"] }
+    },
+    {
+    "Up":   { "isKeyboard":true, "data":[104, "8", "Numpad8"] },
+    "Left": { "isKeyboard":true, "data":[100, "4", "Numpad4"] },
+    "Down": { "isKeyboard":true, "data":[101, "5", "Numpad5"] },
+    "Right":{ "isKeyboard":true, "data":[102, "6", "Numpad6"] },
+    "a":    { "isKeyboard":true, "data":[107, "+", "NumpadAdd"] },
+    "b":    { "isKeyboard":true, "data":[96, "0", "Numpad0"] },
+    "Escape":{"isKeyboard":true, "data":[27, "Escape", "Escape"] }
+    }],
+"aspect": 0,
+"relLocation": ".json",
+"loadUnityGame": true,
+"controllerLocation": "https://openconsole.github.io/Controllers/basic.html",
+"controllerLayout": "102435"
+}

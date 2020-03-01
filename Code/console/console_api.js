@@ -15,14 +15,12 @@ const defaultOptions = {
   bubbles: true,
   cancelable: true,
   keyCode: 0,
-  which: 1,
   key: "e",
   code: "KeyE"
 }
-const minDownTime = 60;
 
 function GameControl() {
-  this.seenIDs = {};
+  this.lastDown = {};
 }
 
 GameControl.prototype.simulate = function (element, eventName, options) {
@@ -42,7 +40,6 @@ GameControl.prototype.simulate = function (element, eventName, options) {
         oEvent.initMouseEvent(eventName, allOptions.bubbles, allOptions.cancelable, document.defaultView,
             allOptions.button, allOptions.pointerX, allOptions.pointerY, allOptions.pointerX, allOptions.pointerY,
             allOptions.ctrlKey, allOptions.altKey, allOptions.shiftKey, allOptions.metaKey, allOptions.button, null);
-        oEvent.which = 1;
         break;
       case 'TouchEvent':
         oEvent.initTouchEvent(eventName, allOptions.bubbles, allOptions.cancelable, document.defaultView,
@@ -52,7 +49,7 @@ GameControl.prototype.simulate = function (element, eventName, options) {
       case 'KeyboardEvent':
         oEvent = new KeyboardEvent(eventName, {bubbles : allOptions.bubbles, cancelable : allOptions.cancelable,
                                                ctrlKey : allOptions.ctrlKey, altKey : allOptions.altKey, shiftKey : allOptions.shiftKey, metaKey : allOptions.metaKey,
-                                               code: allOptions.code, key : allOptions.key, keyCode: allOptions.keyCode, which:allOptions.keyCode });
+                                               code: allOptions.code, key : allOptions.key, keyCode: allOptions.keyCode});
         break;
     }
     element.dispatchEvent(oEvent);
@@ -77,17 +74,22 @@ GameControl.prototype.extend = function (destination, source) {
 GameControl.prototype.simulateKeyDown = function (keyCode, key, code) {
   var gameInstance = gamesCtrl.getGameInstance();
   if(gameInstance == null) return;
+  gCtrl.lastDown[keyCode] = Date.now();
   gCtrl.simulate(gameInstance, "keydown", { keyCode: keyCode, key: key, code: code });
 }
 GameControl.prototype.simulateKeyUp = function (keyCode, key, code) {
   var gameInstance = gamesCtrl.getGameInstance();
   if(gameInstance == null) return;
+  if(gCtrl.lastDown[keyCode] && Date.now() - gCtrl.lastDown[keyCode] < 50) {
+    setTimeout(function() { gCtrl.simulateKeyUp(keyCode, key, code); }, 50 - Date.now() + gCtrl.lastDown[keyCode]);
+    return;
+  }
   gCtrl.simulate(gameInstance, "keypress", { keyCode: keyCode, key: key, code: code });
   gCtrl.simulate(gameInstance, "keyup", { keyCode: keyCode, key: key, code: code });
 }
 GameControl.prototype.simulateKey = function (keyCode, key, code) {
   gCtrl.simulateKeyDown(keyCode, key, code);
-  setTimeout(function() { gCtrl.simulateKeyUp(keyCode, key, code); }, minDownTime);
+  setTimeout(function() { gCtrl.simulateKeyUp(keyCode, key, code); }, 100);
 }
 /**
  * Simulate click with absolute x and y.
@@ -95,6 +97,7 @@ GameControl.prototype.simulateKey = function (keyCode, key, code) {
 GameControl.prototype.simulateClickDown = function (x, y) {
   var gameInstance = gamesCtrl.getGameInstance();
   if(gameInstance == null) return;
+  gCtrl.lastDown[-1] = Date.now();
   gCtrl.simulate(gameInstance, "mousemove", { pointerX: x, pointerY: y });
   setTimeout(function() {
     gCtrl.simulate(gameInstance, "mousedown", { pointerX: x, pointerY: y });
@@ -103,6 +106,10 @@ GameControl.prototype.simulateClickDown = function (x, y) {
 GameControl.prototype.simulateClickUp = function (x, y) {
   var gameInstance = gamesCtrl.getGameInstance();
   if(gameInstance == null) return;
+  if(gCtrl.lastDown[-1] && Date.now() - gCtrl.lastDown[-1] < 80) {
+    setTimeout(function() { gCtrl.simulateClickUp(x, y); }, 80 - Date.now() + gCtrl.lastDown[-1]);
+    return;
+  }
   gCtrl.simulate(gameInstance, "mouseup", { pointerX: x, pointerY: y });
 }
 /**
@@ -125,10 +132,10 @@ GameControl.prototype.simulateClickUpRelative = function (x, y) {
 GameControl.prototype.simulateClickRelative = function (x, y) {
   var coords = gCtrl.relativeToAbsolute(x, y);
   gCtrl.simulateClickDown(coords[0], coords[1]);
-  setTimeout(function() { gCtrl.simulateClickUp(coords[0], coords[1]); }, minDownTime);
+  setTimeout(function() { gCtrl.simulateClickUp(coords[0], coords[1]); }, 100);
 }
 
-GameControl.prototype.simulateButton = function (buttonData, type, pressID) {
+GameControl.prototype.simulateButton = function (buttonData, type) {
   // TODO: Handle buttonData.isMulti, with buttonData.x and buttonData.y set with strings of pressed pos;
           /*
       var myControls = settings.controls[conn.id];
@@ -147,48 +154,38 @@ GameControl.prototype.simulateButton = function (buttonData, type, pressID) {
       }*/
       
   // Used EXTERNALLY
-  var simMethodKeyboard, simMethodMouse;
-  switch (type) {
-    case 'Up':
-      if(gCtrl.seenIDs[pressID] != null) {
-        if (gCtrl.seenIDs[pressID] == -1) return; // Up got sent twice, ignore this one
-        if (Date.now() - gCtrl.seenIDs[pressID] < minDownTime) {
-          // Wait to send up
-          setTimeout (function() {
-            gCtrl.simulateButton(buttonData, type, pressID);
-          }, minDownTime - Date.now() + gCtrl.seenIDs[pressID]);
-          return;
-        }
-        else {
-          // Simulate normally
-          simMethodKeyboard = gCtrl.simulateKeyUp; // Up got sent after Down
-          simMethodMouse = gCtrl.simulateClickUpRelative;
-          gCtrl.seenIDs[pressID] = null;
-        }
-      } else {
-        gCtrl.seenIDs[pressID] = -1; // Up got sent before Down, simulate click
-        simMethodKeyboard = gCtrl.simulateKey;
-        simMethodMouse = gCtrl.simulateClickRelative;
-      }
-      break;
-    case 'Down':
-      if(gCtrl.seenIDs[pressID] != null) { // Down got sent twice or after Up, ignore this one
-        if (gCtrl.seenIDs[pressID] == -1) gCtrl.seenIDs[pressID] = null; // Down got sent after Up
-        return;
-      } else {
-        simMethodKeyboard = gCtrl.simulateKeyDown; // Down got sent before Up, simulate down
-        simMethodMouse = gCtrl.simulateClickDownRelative;
-        gCtrl.seenIDs[pressID] = Date.now();
-      }
-      break;
-    case 'Press':
-      simMethodKeyboard = gCtrl.simulateKey;
-      simMethodMouse = gCtrl.simulateClickRelative;
-      break;
-    default:
-      break;
+  var simMethod;
+  if(buttonData.isKeyboard) {
+    switch (type) {
+      case 'Up':
+        simMethod = gCtrl.simulateKeyUp;
+        break;
+      case 'Down':
+        simMethod = gCtrl.simulateKeyDown;
+        break;
+      case 'Press':
+        simMethod = gCtrl.simulateKey;
+        break;
+      default:
+        break;
+    }
   }
-  var simMethod = buttonData.isKeyboard ? simMethodKeyboard : simMethodMouse;
+  else {
+    switch (type) {
+      case 'Up':
+        simMethod = gCtrl.simulateClickUpRelative;
+        break;
+      case 'Down':
+        simMethod = gCtrl.simulateClickDownRelative;
+        break;
+      case 'Press':
+        simMethod = gCtrl.simulateClickRelative;
+        break;
+      default:
+        break;
+    }
+  }
+  
   simMethod(buttonData.data[0], buttonData.data[1], buttonData.data[2]);
 }
 

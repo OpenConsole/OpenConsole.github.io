@@ -3,6 +3,7 @@ function MetaConsole() {
   this.status = document.getElementById("status");
   this.playersText = document.getElementById("playerList");
   this.internetImage = document.getElementById("internet-lost");
+  this.gameContainer = document.getElementById('webgl-content');
   this.gameTitle = document.getElementById("gameTitle");
   window.addEventListener('resize', this.updateGameSize);
   document.getElementById("fullscreenButton").addEventListener("click", toggleFullscreen);
@@ -16,10 +17,10 @@ MetaConsole.prototype.displayServerInfo = function (a, b) {
 }
 
 MetaConsole.prototype.displayNoInternet = function () {
-  metaConsole.internetImage.classList.remove('hiddenImage');
+  metaConsole.internetImage.classList.add('hiddenImage');
 }
 MetaConsole.prototype.hideNoInternet = function () {
-  metaConsole.internetImage.classList.add('hiddenImage');
+  metaConsole.internetImage.classList.remove('hiddenImage');
 }
 
 MetaConsole.prototype.connectionDestroyed = function () {
@@ -65,9 +66,6 @@ MetaConsole.prototype.displayPlayers = function (conns) {
 
 MetaConsole.prototype.updateGameSize = function() {
   if (gamesCtrl.currGame == null) return;
-  var gameContainer = gamesCtrl.getGameIFrame();
-  if (gameContainer == null) return;
-
   var myWidth = window.innerWidth, myHeight = window.innerHeight - 60;
   var aspectRatio = gamesCtrl.currGame.settings.aspect;
   if(aspectRatio && aspectRatio != 0) {
@@ -78,8 +76,8 @@ MetaConsole.prototype.updateGameSize = function() {
       myHeight = Math.ceil(myHeight * deltaAspect);
     }
   }
-  gameContainer.style.width = myWidth + 'px';
-  gameContainer.style.height = myHeight + 'px';
+  metaConsole.gameContainer.style.width = myWidth + 'px';
+  metaConsole.gameContainer.style.height = myHeight + 'px';
 }
 
 MetaConsole.prototype.displayNewGame = function(gameName) {

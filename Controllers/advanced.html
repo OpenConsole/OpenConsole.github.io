@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <title>Advanced Controller</title>
+    <link rel="stylesheet" href="advanced_style.css">
+  </head>
+  <body>
+  <div id="background"></div>
+  <table class="controllerTable" style="top: 0vmin;">
+    <tr class="smallRow">
+      <td class="button disabledButton" id="Btn-Start">Start</td>
+      <td class="button disabledButton" id="Btn-Escape">Escape</td>
+    </tr>
+  </table>
+  <div id="playerSelectDiv">
+    <select name="player" id="playerSelect" class="playerSelect disabledButton" disabled>
+      <option value="" selected="selected">Select hero...</option>
+    </select>
+    <button type="button" id="playerSelectButton" class="playerSelect disabledButton" disabled>Select</button>
+  </div>
+  <table class="controllerTable" style="bottom: 3vmin;">
+    <tr>
+      <td class="button remapButton disabledButton" id="Btn-x">X</td>
+      <td class="button remapButton disabledButton" style="border:none"></td>
+      <td class="button remapButton disabledButton" id="Btn-y">Y</td>
+    </tr>
+    <tr>
+      <td class="button remapButton disabledButton" id="Btn-a">A</td>
+      <td class="button remapButton dirButton disabledButton" id="Btn-Up">↑</td>
+      <td class="button remapButton disabledButton" id="Btn-b">B</td>
+    </tr>
+    <tr>
+      <td class="button remapButton dirButton disabledButton" id="Btn-Left">←</td>
+      <td class="button remapButton dirButton disabledButton" id="Btn-Down">↓</td>
+      <td class="button remapButton dirButton disabledButton" id="Btn-Right">→</td>
+    </tr>
+  </table>
+  <script src="advanced_controller.js"></script>
+  <script src="generic_controller.js"></script>
+</body>
+</html>

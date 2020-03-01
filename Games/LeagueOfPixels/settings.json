@@ -1,0 +1,40 @@
+{
+"maxPlayers": 2,
+"controls": [
+    {
+    "Up":   { "isKeyboard":true, "data":[87, "w", "KeyW"] },
+    "Left": { "isKeyboard":true, "data":[65, "a", "KeyA"] },
+    "Down": { "isKeyboard":true, "data":[83, "s", "KeyS"] },
+    "Right":{ "isKeyboard":true, "data":[68, "d", "KeyD"] },
+    "a":    { "isKeyboard":true, "data":[74, "j", "KeyJ"] },
+    "b":    { "isKeyboard":true, "data":[75, "k", "KeyK"] },
+    "x":    { "isKeyboard":true, "data":[76, "l", "KeyL"] },
+    "y":    { "isKeyboard":true, "data":[66, "b", "KeyB"] },
+    "Escape":{"isKeyboard":true, "data":[27, "Escape", "Escape"] },
+    "Start":{ "isKeyboard":false,"data":["0.49", "0.925", "0"] },
+    "Select":{"isKeyboard":false,"isMulti":true, "data":
+                {"width": 7, "height" : 2, "topLeft":["0.4", "0.383", "0"], "delta":["0.08", "0.21", "0"] }}
+    },
+    {
+    "Up":   { "isKeyboard":true, "data":[38, "ArrowUp", "ArrowUp"] },
+    "Left": { "isKeyboard":true, "data":[37, "ArrowLeft", "ArrowLeft"] },
+    "Down": { "isKeyboard":true, "data":[40, "ArrowDown", "ArrowDown"] },
+    "Right":{ "isKeyboard":true, "data":[39, "ArrowRight", "ArrowRight"] },
+    "a":    { "isKeyboard":true, "data":[100, "4", "Numpad4"] },
+    "b":    { "isKeyboard":true, "data":[101, "5", "Numpad5"] },
+    "x":    { "isKeyboard":true, "data":[102, "6", "Numpad6"] },
+    "y":    { "isKeyboard":true, "data":[97, "1", "Numpad1"] },
+    "Escape":{"isKeyboard":true, "data":[27, "Escape", "Escape"] },
+    "Start":{ "isKeyboard":false,"data":["0.49", "0.925", "0"] },
+    "Select":{"isKeyboard":false,"isMulti":true, "data":
+                {"width": 7, "height" : 2, "topLeft":["0.4", "0.383", "0"], "delta":["0.08", "0.21", "0"] }}
+    }
+    ],
+"OnGameLoad": {"delay":"15", "keys" : [{ "isKeyboard":false,"data":["0.025", "0.418", "0"] }, { "isKeyboard":false,"data":["0.5", "0.55", "0"] }, { "isKeyboard":false,"data":["0.2", "0.4", "0"] }]},
+"aspect": "1.852",
+"relLocation": "index.html",
+"loadUnityGame": false,
+"canvasID": "c2canvas",
+"controllerLocation": "https://openconsole.github.io/Controllers/advanced.html",
+"controllerLayout": "102435768"
+}

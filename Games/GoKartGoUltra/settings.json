@@ -1,0 +1,21 @@
+{
+"maxPlayers": 2,
+"controls": [
+    {
+    "Left": { "isKeyboard":true, "data":[65, "a", "KeyA"] },
+    "Right":{ "isKeyboard":true, "data":[68, "d", "KeyD"] },
+    "Start":{ "isKeyboard":false, "data":["0.35", "0.5", "0"] }
+    },
+    {
+    "Up":   { "isKeyboard":true, "data":[38, "ArrowUp", "ArrowUp"] },
+    "Down": { "isKeyboard":true, "data":[40, "ArrowDown", "ArrowDown"] },
+    "Start":{ "isKeyboard":false, "data":["0.35", "0.5", "0"] }
+    }
+    ],
+"OnGameLoad": {"delay":"1", "keys" : [{ "isDelay":true,"data":[5000] }, { "isKeyboard":false,"data":["0.65", "0.45", "0"] }]},
+"aspect": "0",
+"absLocation": "https://game-cdn.poki.com/v3/gokartgoultra/Build/GoKartGoUltra.json?v=1",
+"loadUnityGame": true,
+"controllerLocation": "https://openconsole.github.io/Controllers/basic.html",
+"controllerLayout": "012345"
+}

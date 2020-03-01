@@ -1,0 +1,9 @@
+[
+{ "name":"_ChooseGame", "relLocation":"ChooseGame/settings.json" },
+{ "name":"#HardCrash", "relLocation":"HardCrash/settings.json" },
+{ "name":"Maze Game", "relLocation":"MazeGame/settings.json" },
+{ "name":"League Of Pixels", "relLocation":"LeagueOfPixels/settings.json" },
+{ "name":"G-Switch 3", "relLocation":"G-Switch_3/settings.json" },
+{ "name":"Two Ball", "relLocation":"TwoBall3D/settings.json" },
+{ "name":"Snow World", "relLocation":"SnowWorld/settings.json" }
+]

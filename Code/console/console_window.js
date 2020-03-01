@@ -7,11 +7,9 @@ function CurrGame(gameName, gameSettings, gameLoc) {
 
 function Games() {
   this.defaultGame = "_ChooseGame"; // MazeGame ~ #HardCrash
-  // this.corsProxy = "https://cors-anywhere.herokuapp.com/";
-  this.corsProxy = "https://cors-proxy-oc.glitch.me/";
   this.currGame = null;
   this.gamesList = null;
-  this.gamesIFrame = null;
+  this.gamesIFrame = document.getElementById("webgl-content");
   window.addEventListener("message", this.handleMessageFromGame, false);
 }
 Games.prototype.initialize = function() {
@@ -69,10 +67,8 @@ Games.prototype.onGameLoad = function () {
   if (!gamesCtrl.currGame) return;
   if(gamesCtrl.currGame.name == gamesCtrl.defaultGame) {
     var gamesArray = Object.values(gamesCtrl.gamesList).filter(game => { return game.name[0] != "_" });
-    var messageToSend = {"type":"SetGames", "gamesList":gamesArray, "prevGame":gamesCtrl.prevGame };
+    var messageToSend = {"type":"SetGames", "gamesList":gamesArray };
     gamesCtrl.gamesIFrame.contentWindow.postMessage(messageToSend, "*");
-  } else {
-    gamesCtrl.prevGame = gamesCtrl.currGame.name;
   }
     
   var ogl = gamesCtrl.currGame.settings.OnGameLoad;
@@ -94,9 +90,7 @@ Games.prototype.onGameLoad = function () {
 }
 
 Games.prototype.setGameFrame = function (game) {
-  document.getElementById("game").innerHTML = "<iframe id=\"webgl-content\" src=\"\" scrolling=\"no\" frameBorder=\"0\"></iframe>";
-  gamesCtrl.gamesIFrame = document.getElementById("webgl-content");
-
+  gamesCtrl.gamesIFrame.src = '';
   gamesCtrl.currGame = game;
   gamesCtrl.gamesIFrame.addEventListener("load", function() { gamesCtrl.waitForGameLoad(game.name); } );
   if(game.settings.loadUnityGame)
@@ -122,11 +116,10 @@ Games.prototype.setGame = function (gameName) {
     return;
   }
   var gameSettingsLocation = gamesCtrl.gamesList[gameName].path;
-  gamesCtrl.loadJSON(gamesCtrl.corsProxy + gameSettingsLocation,
+  gamesCtrl.loadJSON(gameSettingsLocation,
     function(data) { 
       console.log(data);
-      // Use CORS proxy
-      var path = gamesCtrl.corsProxy + gamesCtrl.getGamePath(data, gameSettingsLocation);
+      var path = gamesCtrl.getGamePath(data, gameSettingsLocation);
       if(path == null) {
         console.error("Path to game not specified!");
         return;
@@ -135,7 +128,6 @@ Games.prototype.setGame = function (gameName) {
       var game = new CurrGame(gameName, data, path);
       
       gamesCtrl.setGameFrame(game);
-      consoleNet.resetPlayerIds();
       consoleNet.setContollerGameAll();
       metaConsole.displayNewGame(gameName[0] == "_" ? "" : gameName);
     },
@@ -148,13 +140,12 @@ Games.prototype.onLoadGameList = function() {
     gamesCtrl.setGame(gamesCtrl.defaultGame);
 }
 Games.prototype.loadGamesList = function (jsonLocation) {
-  gamesCtrl.loadJSON(gamesCtrl.corsProxy + jsonLocation,
+  gamesCtrl.loadJSON(jsonLocation,
     function(data) {
       var relPath = jsonLocation.substring(0, jsonLocation.lastIndexOf("/") + 1);
       for (var i = 0; i < data.length; i++) {
         if(gamesCtrl.gamesList == null) gamesCtrl.gamesList = {};
-        gamesCtrl.gamesList[data[i].name] = data[i];
-        gamesCtrl.gamesList[data[i].name].path = relPath + data[i].relLocation;
+        gamesCtrl.gamesList[data[i].name] = { "name":data[i].name, "path":(relPath + data[i].relLocation), "gamePic":data[i].gamePic };
       }
       gamesCtrl.onLoadGameList();
     },
@@ -164,8 +155,7 @@ Games.prototype.loadGamesList = function (jsonLocation) {
 Games.prototype.loadDefaultGamesList = function() {
   if(gamesCtrl.gamesList) return;
   
-  //gamesCtrl.loadGamesList('http://localhost:8000/Games/gamesList.json');
-  gamesCtrl.loadGamesList('https://openconsole-games.github.io/Games/gamesList.json');
+  gamesCtrl.loadGamesList('https://openconsole.github.io/Games/gamesList.json');
   setTimeout(gamesCtrl.loadDefaultGamesList, 5000);
 }
 
@@ -183,10 +173,6 @@ Games.prototype.getGameInstance = function() {
   // Used EXTERNALLY
   if (!gamesCtrl.currGame) return null;
   return gamesCtrl.currGame.gameInstance;
-}
-Games.prototype.getGameIFrame = function() {
-  // Used EXTERNALLY
-  return gamesCtrl.gamesIFrame;
 }
 Games.prototype.getMaxPlayers = function() {
   // Used EXTERNALLY

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <title>Basic Controller</title>
+    <link rel="stylesheet" href="basic_style.css">
+  </head>
+  <body>
+    <div id="background"></div>
+  <table class="controllerTable" style="bottom: 60vmin;">
+    <tr class="smallRow">
+      <td class="button disabledButton" id="Btn-Start">Start</td>
+      <td class="button disabledButton" id="Btn-Escape">Escape</td>
+    </tr>
+  </table>
+  <table class="controllerTable" style="bottom: 3vmin;">
+    <tr>
+      <td class="button remapButton disabledButton" id="Btn-a">A</td>
+      <td class="button remapButton dirButton disabledButton" id="Btn-Up">↑</td>
+      <td class="button remapButton disabledButton" id="Btn-b">B</td>
+    </tr>
+    <tr>
+      <td class="button remapButton dirButton disabledButton" id="Btn-Left">←</td>
+      <td class="button remapButton dirButton disabledButton" id="Btn-Down">↓</td>
+      <td class="button remapButton dirButton disabledButton" id="Btn-Right">→</td>
+    </tr>
+  </table>
+  <script src="basic_controller.js"></script>
+  <script src="generic_controller.js"></script>
+</body>
+</html>

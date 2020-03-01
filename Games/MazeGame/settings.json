@@ -1,0 +1,23 @@
+{
+"maxPlayers": 2,
+"controls": [
+    {
+    "Up":   { "isKeyboard":true, "data":[38, "ArrowUp", "ArrowUp"] },
+    "Left": { "isKeyboard":true, "data":[37, "ArrowLeft", "ArrowLeft"] },
+    "Down": { "isKeyboard":true, "data":[40, "ArrowDown", "ArrowDown"] },
+    "Right":{ "isKeyboard":true, "data":[39, "ArrowRight", "ArrowRight"] },
+    "a":    { "isKeyboard":true, "data":[96, "0", "Numpad0"] }
+    },
+    {
+    "Up":   { "isKeyboard":true, "data":[87, "w", "KeyW"] },
+    "Left": { "isKeyboard":true, "data":[65, "a", "KeyA"] },
+    "Down": { "isKeyboard":true, "data":[83, "s", "KeyS"] },
+    "Right":{ "isKeyboard":true, "data":[68, "d", "KeyD"] },
+    "a":    { "isKeyboard":true, "data":[32, " ", "Space"] }
+    }],
+"aspect": "1.77777777778",
+"relLocation": ".json",
+"loadUnityGame": true,
+"controllerLocation": "https://openconsole.github.io/Controllers/basic.html",
+"controllerLayout": "012345"
+}

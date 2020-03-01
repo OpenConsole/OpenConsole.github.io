@@ -11,20 +11,11 @@
     <p><a href="controller.html" style="font-size: 32px;">Controller</a></p>
     <script type="text/javascript" src="//wurfl.io/wurfl.js"></script>
     <script>
-        var allPressed = [];
         window.addEventListener("keydown", function(e) {
-            //console.log("Key: " + e.key + ", kCode: " + e.keyCode + ", code: " + e.code + ", which: " + e.which);
-            var newBtn = "{\n    \"b\":    { \"innerHTML\":\"" + e.code.replace('Key','') + "\", \"isKeyboard\":true, \"data\":[" + e.keyCode + ", \"" + e.key + "\", \"" + e.code + "\"] },\n    \"Start\":{ \"innerHTML\":\"Space\", \"isKeyboard\":true, \"data\":[32, \" \", \"Space\"] }\n  },";
-            allPressed.push(newBtn);
-            var total = "";
-            allPressed.forEach(element => total += element);
-            console.log(total);
-        });
-        window.addEventListener("mousedown", function(e) {
-            console.log("Key: " + e.key + ", kCode: " + e.keyCode + ", code: " + e.code + ", which: " + e.which);
-        });
+            console.log("Key: " + e.key + ", kCode: " + e.keyCode + ", code: " + e.code);
+        })
         if(WURFL.is_mobile === true) {
-            window.location.href = "/controller.html";
+            window.location.href = "/controller_new.html";
         } else {
             window.location.href = "/console.html";
         }

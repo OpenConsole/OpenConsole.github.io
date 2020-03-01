@@ -1,0 +1,17 @@
+{
+"maxPlayers": 1,
+"controls": [
+    {
+    "Up":    	{ "isKeyboard":true, "data":[38, "ArrowUp", "ArrowUp"] },
+    "Down":		{ "isKeyboard":true, "data":[40, "ArrowDown", "ArrowDown"] },
+    "Left":		{ "isKeyboard":true, "data":[37, "ArrowLeft", "ArrowLeft"] },
+    "Right":	{ "isKeyboard":true, "data":[39, "ArrowRight", "ArrowRight"] },
+    "Enter":	{ "isKeyboard":true, "data":[13, "Enter", "Enter"] }
+    }],
+"aspect": "0",
+"relLocation": "index.html",
+"loadUnityGame": false,
+"canvasID": "select_canvas",
+"controllerLocation": "https://openconsole.github.io/Controllers/choose_game.html",
+"controllerLayout": ""
+}

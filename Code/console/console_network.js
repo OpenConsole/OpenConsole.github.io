@@ -7,8 +7,6 @@ function Network() {
    * Maybe can show more people on same line after resize
    */
   window.addEventListener('resize', this.showConnections);
-  this.a = null;
-  this.b = null;
 }
 
 /**
@@ -33,51 +31,19 @@ Network.prototype.peerjsLoadError = function() {
  * Sets up callbacks that handle any events related to our
  * peer object.
  */
-Network.prototype.loadPreviousAB = function() {
-  var name = "prevAB=";
-  var ca = document.cookie.split(';');
-  for(var i = 0; i < ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      var prevAB = c.substring(name.length, c.length).split(' ');
-      consoleNet.a = parseInt(prevAB[0]);
-      consoleNet.b = parseInt(prevAB[1]);
-      return 1;
-    }
-  }
-  return 0;
-}
-Network.prototype.generateRandomAB = function() {
-    consoleNet.a = Math.floor(Math.random() * 990) + 10;
-    var b1 = Math.floor(Math.random() * 9) + 1, b2 = Math.floor(Math.random() * 10), b3 = (23 - b1 - b2) % 10;
-    consoleNet.b = b1 * 100 + b2 * 10 + b3;
-}
-Network.prototype.saveAB = function(a, b) {
-  var d = new Date();
-  d.setTime(d.getTime() + (1 * 24 * 60 * 60 * 1000));
-  var expires = "expires="+d.toUTCString();
-  document.cookie = "prevAB=" + a + " " + b + ";" + expires + ";";
-}
 Network.prototype.initialize = function() {
   if(typeof Peer == "undefined") {
     peerjsLoadError();
     return;
   }
-  if(consoleNet.loadPreviousAB() == 0) {
-    consoleNet.generateRandomAB();
-  }
-  consoleNet.createPeer();
-}
-Network.prototype.createPeer = function() {
-  var myId = getId(consoleNet.a, consoleNet.b);
+  var a = Math.floor(Math.random() * 990) + 10;
+  var b1 = Math.floor(Math.random() * 9) + 1, b2 = Math.floor(Math.random() * 10), b3 = (23 - b1 - b2) % 10;
+  var b = b1 * 100 + b2 * 10 + b3;
+  var myId = getId(a, b);
   // Create own peer object with connection to shared PeerJS server
   consoleNet.peer = new Peer(myId, {
       debug: 2
   });
-  consoleNet.peer.consoleState = 0;
   consoleNet.peer.on('open', function (id) {
     // Workaround for peer.reconnect deleting previous id
     if (consoleNet.peer.id === null) {
@@ -87,51 +53,32 @@ Network.prototype.createPeer = function() {
         consoleNet.lastPeerId = consoleNet.peer.id;
     }
     console.log('ID: ' + consoleNet.peer.id);
-    consoleNet.peer.consoleState = 3;
-    consoleNet.saveAB(consoleNet.a, consoleNet.b);
-    metaConsole.displayServerInfo(consoleNet.a, consoleNet.b);
+    metaConsole.displayServerInfo(a, b);
   });
   consoleNet.peer.on('connection', function (c) {
     consoleNet.setupController(c);
   });
   var lastDC = 0;
   consoleNet.peer.on('disconnected', function () {
-    console.log('Disconnected from PeerNet, reconnecting.');
     // Workaround for peer.reconnect deleting previous id
     consoleNet.peer.id = consoleNet.lastPeerId;
     consoleNet.peer._lastServerId = consoleNet.lastPeerId;
     consoleNet.peer.reconnect();
     // If don't dc in next 3.5s hide network error
-    metaConsole.displayNoInternet();
     var nowTime = Date.now();
     lastDC = nowTime
-    setTimeout(function() { if(lastDC == nowTime) metaConsole.hideNoInternet(); }, 2500);
+    setTimeout(function() { if(lastDC == nowTime) metaConsole.hideNoInternet(); }, 3500);
   });
   consoleNet.peer.on('close', function() {
-    switch (consoleNet.peer.consoleState) {
-      case 3:
-        consoleNet.conns = null;
-        metaConsole.connectionDestroyed();
-        console.log('Connection destroyed');
-        break;
-      case 1:
-        consoleNet.generateRandomAB();
-        consoleNet.createPeer();
-        break;
-    }
+    consoleNet.conns = null;
+    metaConsole.connectionDestroyed();
+    console.log('Connection destroyed');
   });
   consoleNet.peer.on('error', function (err) {
     console.log(err);
     console.log(err.type);
-    switch (err.type) {
-      case 'network':
-        //if(consoleNet.peer.open) {
-          //metaConsole.displayNoInternet();
-        //}
-        break;
-      case 'unavailable-id':
-        consoleNet.peer.consoleState = 1;
-        break;
+    if(err.type == "network") {
+      metaConsole.displayNoInternet();
     }
   });
 }
@@ -142,7 +89,7 @@ Network.prototype.createPeer = function() {
  */
  Network.prototype.setupController = function (conn) {
   conn.on('open', function() {
-    conn.isActive = 6;
+    conn.isActive = 4;
     conn.id = consoleNet.getMinimalId();
     consoleNet.conns.push(conn);
     
@@ -174,8 +121,8 @@ Network.prototype.createPeer = function() {
     }
   }, 3000);*/
 }
-Network.prototype.getMinimalId = function (initialMinId) {
-  var newId = initialMinId || 0;
+Network.prototype.getMinimalId = function () {
+  var newId = 0;
   while(consoleNet.conns.filter(function (oC) { return (oC.id == newId);}).length > 0) {
     newId += 1;
   }
@@ -189,7 +136,7 @@ Network.prototype.handleMessage = function (conn, message) {
         console.log(message.press.keyId + " [IGNORED]");
         return;
       }
-      gCtrl.simulateButton(buttonData, message.press.upDown, message.press.pressId);
+      gCtrl.simulateButton(buttonData, message.press.upDown);
       break;
     case 'SetGame':
       console.log("Received: " + message.name);
@@ -202,25 +149,12 @@ Network.prototype.handleMessage = function (conn, message) {
       }
       break;
     case 'Pong':
-      conn.isActive = 3;
+      conn.isActive = 2;
       break;
     default:
       console.log("Received unknown! " + message);
       break;
   }
-}
-/**
- * Check for dead connections
- */
-Network.prototype.resetPlayerIds = function () {
-  var minId = consoleNet.getMinimalId();
-  for (i = 0; i < consoleNet.conns.length; i++) {
-    if(consoleNet.conns[i].id > minId) {
-      consoleNet.conns[i].id = minId;
-      minId = consoleNet.getMinimalId(minId);
-    }
-  }
-  consoleNet.showConnections();
 }
 /**
  * Check for dead connections

@@ -1,0 +1,5 @@
+A game object json:
+{ "name":"*Name of game, start with _ to make hidden*", 
+  "relLocation":"*Relative location of the game-settings json to this file*",
+  "gamePic":"*OPTIONAL. Absolute location of game image to show.*" 
+}

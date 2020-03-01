@@ -1,0 +1,19 @@
+{
+"maxPlayers": 2,
+"controls": [
+    {
+    "a":    { "innerHTML":"←", "isKeyboard":true, "data":[65, "a", "KeyA"] },
+    "b":    { "innerHTML":"→", "isKeyboard":true, "data":[68, "d", "KeyD"] },
+    "Start":{ "innerHTML":"Play", "isKeyboard":false, "data":["0.35", "0.47", "0"] }
+    },
+    {
+    "a":    { "innerHTML":"←", "isKeyboard":true, "data":[37, "ArrowLeft", "ArrowLeft"] },
+    "b":    { "innerHTML":"→", "isKeyboard":true, "data":[39, "ArrowRight", "ArrowRight"] },
+    "Start":{ "innerHTML":"Two Player", "isKeyboard":false, "data":["0.65", "0.45", "0"] }
+    }
+    ],
+"aspect": "0",
+"relLocation": "TwoBall3D.json",
+"loadUnityGame": true,
+"controllerLocation": "https://openconsole.github.io/Controllers/two_button.html"
+}

@@ -4,9 +4,6 @@ const modes = {
   CONTROLLER: 2,
   MENU: 3
 };
-const capture = {
-  capture : true
-};
 
 function MetaController() {
   this.currMode = modes.CONNECT;
@@ -19,13 +16,7 @@ function MetaController() {
 
   window.addEventListener('resize', this.checkOrentation);
   window.addEventListener('orientationchange', this.checkOrentation);
-  window.addEventListener("focus", this.checkOrentation);
   
-  // Prevent most mobile annoyances
-  window.addEventListener('touchmove', function (e) { e.preventDefault(); }, capture);
-  window.addEventListener('touchend', function (e) { e.preventDefault(); }, capture);
-  window.addEventListener('gesturestart', function(e){ e.preventDefault(); }, capture);
-
   this.idField = document.getElementById("code-code");
   this.disableInput = false;
   this.lastDeleted = false;
@@ -143,10 +134,9 @@ MetaController.prototype.setIdText = function (idText) {
 	}
 }
 
-MetaController.prototype.handleButton = function (btn, input, evnt) {
+MetaController.prototype.handleButton = function (btn, input) {
   // Used EXTERNALLY
 	console.log(input);
-  if (evnt) evnt.preventDefault();
 	if (metaCtrl.disableInput) return;
   if (btn && btn.classList.contains("shade-bg")) {
 	  btn.classList.remove("shade-bg");

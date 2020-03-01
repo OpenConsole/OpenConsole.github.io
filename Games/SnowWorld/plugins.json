@@ -1,0 +1,16 @@
+{
+  "list": [
+    "sparklinlabs/eventEmitter",
+    "sparklinlabs/font",
+    "sparklinlabs/gameSettings",
+    "sparklinlabs/projectSettings",
+    "sparklinlabs/scene",
+    "sparklinlabs/settings",
+    "sparklinlabs/shader",
+    "sparklinlabs/sound",
+    "sparklinlabs/sprite",
+    "sparklinlabs/tileMap",
+    "sparklinlabs/tweenjs",
+    "sparklinlabs/typescript"
+  ]
+}

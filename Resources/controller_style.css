@@ -1,379 +1,109 @@
-@-ms-viewport {
- width:100vw;
- min-zoom:100%;
- zoom:100%
-}
-@-ms-viewport {
- user-zoom:fixed;
- min-zoom:100%
-}
-body {
-    -moz-user-select:none;
+* :not(input) {
     -webkit-user-select:none;
+    -khtml-user-select:none;
+    -moz-user-select:none;
     -ms-user-select:none;
     user-select:none;
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
+    touch-action: manipulation;
+}
+body {
 	overflow	: hidden;
 	padding		: 0;
 	margin		: 0;
+}
+
+input, button, select {
+    z-index: 2;
+}
+
+#background {
+    position: absolute; top: 0; right: 0; bottom: 0; left: 0;
     background-color: #172836;
+    z-index: -100;
 }
 
-.page {
- position:absolute;
- width:100%;
- height:100%;
- left:0;
- top:0;
- text-align:center;
- overflow:hidden;
- display:block;
- background-color: #172836;
+#header {
+    display: flex; flex-wrap: nowrap;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    margin: 3px;
 }
-.device-page {
- background-position:50% 50%;
- background-repeat:no-repeat;
- display:block
+div.headerText {
+    color: white;
+    font-weight: bold;
+    align-self: center;
+    font-size: 18px;
+    margin: 0 3px;
+    z-index: 2;
 }
-.device-text {
- color:white;
- position:absolute;
- left:0;
- width:100%;
- top:50%;
- margin-top:100px
+.inputText {
+    font-size: 16px;
+    padding: 1px 2px 0 2px;
 }
-#device-rotate-landscape {
- background-image:url('rotate-to-landscape.png')
-}
-#code-description-text {
- display:inline-block;
- width:220px
-}
-#connect-info {
- display:flex;
- flex-direction:column;
- position:relative;
- bottom:0;
- width:520px;
- margin: auto;
-}
-.connect-top-row {
- display:flex;
- align-items:center;
- flex-wrap: nowrap;
- justify-content:space-between;
+input.recieverId {
+    width: 30px;
 }
 
-.punch {
- color:#1eaed3
+#playerDetails {
+    align-self: flex-end;
+    display: flex;
+    flex-direction: column;
 }
-.punch-bg {
- background-color:#1eaed3
+div.playerDetailsRow {
+    display: flex;
+    margin: 2px;
 }
-.punch-border {
- border-color:#1eaed3
-}
-.dark-border {
- border-color:#172836
-}
-.shade-bg {
- background-color:#2e506b
-}
-.bright {
- color:#fff;
-}
-.shade-text {
- color:#777
-}
-.dark-shade-bg {
- background-color:#223b4f
+#player-name {
+    width: 120px; display: inline; text-align: right;
 }
 
-.code-description-logo {
- width:100px;
- margin-left:10px;
- align-self: center;
-}
-.code-container {
- position:absolute;
- bottom:0;
- left:0;
- width:100%;
- padding-bottom:.5em
-}
-.code-code-container {
- box-sizing:border-box;
- display:inline-block;
- width:266px;
- text-align:center;
- position:relative;
- margin-bottom:10px;
- margin-top:10px;
- font-size:1.8em;
- padding:.4em .2em .3em .2em;
- font-weight:100
-}
-.name-code-container {
- box-sizing:border-box;
- display:flex;
- justify-content:space-between;
- flex-wrap: nowrap;
- width:240px;
- align-self: center;
- margin-right:10px;
- font-size:1.5em;
- padding:.3em .2em .3em .2em;
- font-weight:100
-}
-.code-code-connect-icon {
- margin:0 4px 0 8px;
- position:relative;
- top:2px;
- align-self: baseline;
-}
-.code-pad-del,
-.code-pad-ok {
- background-repeat:no-repeat;
- background-position:center center;
- background-size:contain
-}
-.code-pad-del {
- background-image:url('code-x.png')
-}
-.code-pad-ok {
- background-image:url('code-tick.png')
-}
-#code-code {
- display:inline-block;
- width:200px;
- text-align:right;
-}
-.code-code-instructions {
- margin-right:10px;
-}
-.code-pad {
- display:inline-block;
- padding:.8em 0;
- width:80px;
- margin:5px;
- text-align:center;
- cursor:hand;
- cursor:pointer;
- border-bottom-style:solid;
- border-bottom-width:5px;
- box-sizing:border-box;
- font-size:1.6em
-}
-table.layout-table {
- width:100%;
- height:100%;
- border:0;
- border-spacing:0;
- border-collapse:collapse;
- text-align:inherit;
- white-space:inherit;
- line-height:inherit;
- font-weight:inherit;
- font-size:inherit;
- font-style:inherit
-}
-.layout-table td {
- padding:0;
- vertical-align:middle
-}
-.layout-table td.valign-top {
- vertical-align:top
-}
-.layout-table td.valign-bottom {
- vertical-align:bottom
-}
-.tooltips {
- position:relative;
- display:inline
-}
-.tooltips span {
- position:absolute;
- width:200px;
- text-align:center;
- display:none;
- padding:10px;
- box-sizing:border-box
-}
-#home-button-container {
- position:absolute;
- left:50%;
- top:0;
- margin-left:-22px;
- display:none
-}
-#home-button {
- width:44px;
- height:44px;
- background-image:url('home-button.png');
- background-repeat:no-repeat;
- background-position:50% 0;
- background-size:40px 40px
+#gamesSelect {
+    width: 150px;
 }
 
-.page {
- position: absolute;
- top:0;bottom:0;left:0;right:0;
+button.buttonText {
+    font-size: 16px;
+    margin: 0 0 0 3px;
+}
+#connect-button {
+    padding: 1px 4px;
+}
+
+img.logo {
+    align-self: center;
+    z-index: 2;
+}
+
+#message, #controller {
+    position: absolute;
+    bottom: 0; left: 0;
+    height: calc( 100vh - 90px ); /* Fallback for browsers that do not support Custom Properties */
+    height: calc(var(--vh, 1vh) * 100 - 90px);
 }
 
 #message {
     color: white;
     overflow-y:auto; padding: 0 8px;
+    width: calc( 100vw - 16px );
 }
 
-
-.menu-buttons-container {
- width:100%;
- height:100%;
- box-sizing:border-box;
- padding:20px;
- overflow:hidden;
- display:flex;
-}
-.menu-row {
- box-sizing:border-box;
- display:block;
- text-align:center;
- height:100%;
- width:50%;
- overflow:hidden
+#controller {
+    width: 100vw; 
+    z-index: 1;
 }
 
-.orientation-landscape .menu-row {
- height:100%;
- width:33.3%;
- float:left;
- margin:0
-}
-#menu .left {
- float:left;
- padding-right:10px
-}
-#menu .right {
- float:right;
- padding-left:10px
-}
-.menu-row-hero {
- margin:0 auto 0 auto;
- width:100%;
- clear:both
-}
-.orientation-landscape .menu-row-hero {
- clear:none;
- padding:0 1%;
- margin:0 auto 0 auto
-}
-.menu-button,
-.menu-button-2 {
- position:relative;
- box-sizing:border-box;
- width:100%;
- height:49%;
- text-align:center;
- cursor:pointer;
- vertical-align:middle
-}
-.menu-row-hero .menu-button {
- height:100%
-}
-.orientation-landscape .menu-row-hero .menu-button {
- width:100%;
- height:100%
-}
-.orientation-landscape .menu-row-hero .menu-row {
- padding-top:0;
- height:49%;
- width:100%
-}
-.menu-row-hero .menu-button-margin-center {
- display:none
-}
-.orientation-landscape .menu-row-hero .menu-button-margin-center {
- display:block
-}
-.orientation-landscape .menu-row-hero .menu-button-margin-top {
- display:none
-}
-.orientation-landscape #menu .menu-row-hero .left,
-.orientation-landscape #menu .menu-row-hero .right {
- float:none;
- padding-right:0;
- padding-left:0
-}
-.orientation-landscape .menu-button,
-.orientation-landscape .menu-button-2 {
- margin-top:0
-}
-.menu-button-bottom {
- margin-top:0
-}
-.menu-button-margin {
- height:2%;
- width:100%
-}
-.menu-button-bottom-border {
- position:absolute;
- pointer-events:none;
- bottom:0;
- left:0;
- height:5px;
- width:100%;
- background-color:#0a121a;
-}
-.menu-button-hero {
- margin:2% 0 0 0;
- height:50%
-}
-.orientation-landscape .menu-button-hero {
- height:100%;
- margin:0
-}
-.menu-button-2 {
- width:100%
-}
-#menu.menu-no-active-game #menu-change-game .label,
-#menu.menu-no-active-game #menu-fav .label {
- opacity:.2
+/**
+Remove arrows from number in
+*/
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-.menu-icon {
- display:block;
- width:40px;
- height:40px;
- margin:auto;
- margin-bottom:.5em;
- background-size:contain;
- background-repeat:no-repeat;
- background-position:center center
-}
-.menu-icon-change-game {
- background-image:url('controller/menu_change_game.png')
-}
-.menu-icon-profile {
- background-image:url('controller/menu_profile.png')
-}
-.menu-icon-close {
- background-image:url('controller/menu_close.png')
-}
-.menu-icon-leave {
- background-image:url('controller/menu_leave.png')
-}
-.menu-icon-help {
- background-image:url('controller/menu_help.png')
-}
-.menu-button .label,
-.menu-button-2 .label {
- font-size:1em;
- width:100%;
- text-align:center;
- opacity:.7;
- position:absolute;
- left:0;
- top:50%;
- transform:translateY(-50%);
- -webkit-transform:translateY(-50%)
+/* Firefox */
+input[type=number] {
+  -moz-appearance:textfield;
 }

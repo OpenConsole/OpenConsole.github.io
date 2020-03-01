@@ -26,7 +26,7 @@ Network.prototype.initialize = function() {
     console.log('ID: ' + playerNet.peer.id);
   });
   playerNet.peer.on('disconnected', function () {
-    console.log('Connection lost. Trying to reconnect');
+    console.log('Connection lost. Please reconnect');
     // Workaround for peer.reconnect deleting previous id
     playerNet.peer.id = playerNet.lastPeerId;
     playerNet.peer._lastServerId = playerNet.lastPeerId;
@@ -40,18 +40,13 @@ Network.prototype.initialize = function() {
     console.log(err);
     console.log(err.type);
     if (err.type == "peer-unavailable") {
-      if (playerNet.connectingFirstTime) {
-        metaCtrl.invalidId();
-      } else {
-        ctrlApi.setGame("");
-        metaCtrl.enableConnect();
-      }
+      metaCtrl.invalidId();
     }
     else if (err.type == "network") {
-      //metaCtrl.enableConnect();
-      //if(playerNet.conn && !playerNet.conn.open) {
-        //playerNet.conn = null;
-      //}
+      metaCtrl.enableConnect();
+      if(playerNet.conn && !playerNet.conn.open) {
+        playerNet.conn = null;
+      }
     } else {
       alert('' + err);
     }
@@ -107,7 +102,6 @@ Network.prototype.closeConnection = function() {
 Network.prototype.disconnect = function() {
   // Used EXTERNALLY
   if (playerNet.conn) {
-    playerNet.conn.wantToDisconnect = true;
     playerNet.sendDisconnect();
     setTimeout(function() {
       playerNet.closeConnection();
@@ -132,43 +126,24 @@ Network.prototype.connect = function(id) {
   if (checksum != 3 || idB2 == 0 || idA < 10)
     return 0;
   var connId = getId(idA, idB);
-  playerNet.connectingFirstTime = true;
-  playerNet.netConnect(connId);
-  return 1;
-}
-Network.prototype.netConnect = function(peerjsId) {
   // Create connection to destination peer specified in the input field
-  playerNet.conn = playerNet.peer.connect(peerjsId, {
+  playerNet.conn = playerNet.peer.connect(connId, {
     reliable: true,
     metadata: player
   });
   playerNet.conn.on('open', function () {
     metaCtrl.connected();
-    playerNet.conn.wantToDisconnect = false;
     console.log("Connected to: " + playerNet.conn.peer);
     // Handle incoming data (messages only since playerNet is the signal sender)
     playerNet.conn.on('data', function (data) {
       playerNet.handleMessage(JSON.parse(data));
     });
     playerNet.conn.on('close', function () {
-      if (playerNet.conn.wantToDisconnect == null || playerNet.conn.wantToDisconnect) {
-        ctrlApi.setGame("");
-        metaCtrl.enableConnect();
-        playerNet.conn = null;
-      } else {
-        playerNet.connectingFirstTime = false;
-        var reconnectToPeer = function() {
-          if (!playerNet.peer.disconnected) {
-            playerNet.netConnect(peerjsId);
-          }
-          else {
-            setTimeout(reconnectToPeer, 500);
-          }
-        }
-        reconnectToPeer();
-      }
+      metaCtrl.enableConnect();
+      playerNet.conn = null;
     });
   });
+  return 1;
 }
     
 Network.prototype.handleMessage = function (message) {

@@ -27,7 +27,7 @@
     </div>
     
     <div id="game">
-
+        <iframe id="webgl-content" src="" scrolling="no" frameBorder="0"></iframe>
     </div>
 
     <script id="peerjsScript" src="https://unpkg.com/peerjs@1.2.0/dist/peerjs.min.js"></script>
@@ -38,24 +38,18 @@
     <script src="Code/console/console_network.js"></script>
     
     <script>
-      var lastGame = null;
-      function addListener () {
+    document.addEventListener('newGame', function() {
         setTimeout( function() {
-          addListener();
-          if(document.getElementById("webgl-content") && lastGame && document.getElementById("webgl-content").contentWindow == lastGame)
-            return;
-          lastGame = document.getElementById("webgl-content").contentWindow;
-          lastGame.addEventListener("keydown", function(e) {
+            document.getElementById("webgl-content").contentWindow.addEventListener("keydown", function(e) {
                 console.log("Key: " + e.key + ", kCode: " + e.keyCode + ", code: " + e.code);
-          });
-          lastGame.addEventListener("mousedown", function(e) {
+            })
+            document.getElementById("webgl-content").contentWindow.addEventListener("mousedown", function(e) {
                 var rect = document.getElementById("webgl-content").getBoundingClientRect();
                 var xPix = (e.clientX) / (rect.right - rect.left);
                 var yPix = (e.clientY) / (rect.bottom - rect.top);
                 console.log("X: " + xPix + ", Y: " + yPix);
-          });
+            })
         }, 2000);
-      }
-      addListener();
+    });
     </script>
   </body>

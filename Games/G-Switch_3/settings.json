@@ -1,0 +1,42 @@
+{
+"maxPlayers": 8,
+"controls": [
+    {
+    "b":    { "innerHTML":"C", "isKeyboard":true, "data":[67, "c", "KeyC"] },
+    "Start":{ "innerHTML":"Enter", "isKeyboard":true, "data":[13, "Enter", "Enter"] }
+    },
+    {
+    "b":    { "innerHTML":"M", "isKeyboard":true, "data":[77, "m", "KeyM"] },
+    "Start":{ "innerHTML":"Enter", "isKeyboard":true, "data":[13, "Enter", "Enter"] }
+    },
+    {
+    "b":    { "innerHTML":"Ctrl", "isKeyboard":true, "data":[17, "Control", "ControlLeft"] },
+    "Start":{ "innerHTML":"Enter", "isKeyboard":true, "data":[13, "Enter", "Enter"] }
+    },
+    {
+    "b":    { "innerHTML":"Right", "isKeyboard":true, "data":[39, "ArrowRight", "ArrowRight"] },
+    "Start":{ "innerHTML":"Enter", "isKeyboard":true, "data":[13, "Enter", "Enter"] }
+    },
+    {
+    "b":    { "innerHTML":"A", "isKeyboard":true, "data":[65, "a", "KeyA"] },
+    "Start":{ "innerHTML":"Enter", "isKeyboard":true, "data":[13, "Enter", "Enter"] }
+    },
+    {
+    "b":    { "innerHTML":"Num 3", "isKeyboard":true, "data":[99, "3", "Numpad3"] },
+    "Start":{ "innerHTML":"Enter", "isKeyboard":true, "data":[13, "Enter", "Enter"] }
+    },
+    {
+    "b":    { "innerHTML":"B", "isKeyboard":true, "data":[66, "b", "KeyB"] },
+    "Start":{ "innerHTML":"Enter", "isKeyboard":true, "data":[13, "Enter", "Enter"] }
+    },
+    {
+    "b":    { "innerHTML":"Click", "isKeyboard":false, "data":["0.06", "0.5", "0"] },
+    "Start":{ "innerHTML":"Enter", "isKeyboard":true, "data":[13, "Enter", "Enter"] }
+    }],
+"OnGameLoad": {"delay":"4", "keys" : [{ "isKeyboard":false,"data":["0.78", "0.84", "0"] }, { "isDelay":true,"data":[5000] }, { "isKeyboard":false,"data":["0.852", "0.766", "0"] }, { "isDelay":true,"data":[500] }, { "isKeyboard":false,"data":["0.827", "0.27", "0"] }, { "isDelay":true,"data":[400] }, { "isKeyboard":false,"data":["0.92", "0.906", "0"] }]},
+"aspect": "1.77777778",
+"relLocation": "index.html",
+"loadUnityGame": false,
+"canvasID": "openfl-content",
+"controllerLocation": "https://openconsole.github.io/Controllers/two_button.html"
+}

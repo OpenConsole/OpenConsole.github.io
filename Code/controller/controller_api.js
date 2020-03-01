@@ -38,3 +38,18 @@ SubController.prototype.sendMessage = function (event) {
 
 var ctrlApi = new SubController();
 ctrlApi.initialize();
+
+
+/* Prevent most guestures */
+(function() {
+    var lastTouchEnd = 0;
+    window.addEventListener('touchmove', function (e) { e.preventDefault(); e.stopPropagation(); } , false);
+    window.addEventListener('touchend', function (e) { 
+            if (Date.now() - lastTouchEnd <= 300) {
+                console.log("Prevented touchend");
+                e.preventDefault();
+            }
+            lastTouchEnd = Date.now();
+        }, false);
+    window.addEventListener('gesturestart', function(e){ e.preventDefault(); });
+})();
