@@ -1,0 +1,12 @@
+All messages to server are sent as a JSON.stringify() of a message Object.
+Every message has:
+  .type:
+    "KeyPress":
+      .press.keyId 	// Key code id
+      .press.upDown	// If key was pressed "Up" or "Down" or "Press"
+      .press.pressId	// Unique ID of this given press
+    "SetGame":
+      .name		// Name of game to set to
+    "Pong"		// Ack ping
+    "Disconnect"	// Signal disconnecting
+    

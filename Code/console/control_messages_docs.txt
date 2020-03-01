@@ -1,0 +1,13 @@
+All messages to server are sent as a JSON.stringify() of a message Object.
+Every message has:
+  .type:
+    "SetGame":
+      .name		// Name of new game
+      .controllerLoc	// Location of controller to load
+      .keymap		// Same as below
+    "SetControllerLayout":
+      .keymap[*keyId*] 		// check with if(message.keymap[*keyId*]), then enabled
+      .keymap[*keyId*].text	// innerHtml of button
+    "Ping"		// Check for liveness
+    "Disconnect"	// Signal disconnecting
+    

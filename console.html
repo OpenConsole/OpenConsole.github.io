@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>OpenConsole</title>
+    <link rel="shortcut icon" href="Resources/favicon.ico">
+    <link rel="stylesheet" href="Resources/console_style.css">
+    <script type="text/javascript"> window.alert = function() {}; </script>
+  </head>
+  <body>
+    <div id="background"></div>
+    <div id="header">
+      <img class="logo" hspace="10" src="Resources/logo_dtl.png" alt="OpenConsole">
+      <div id="gameTitle" class="title">Choose a game</div>
+	  <div class="code-code-container shade-bg">
+        <img id="id-icon" src="Resources/connect-code.png" alt="ID:">
+        <div id="receiver-id" title="Copy this ID to the input on controller.html."></div>
+	  </div>
+      <img id="internet-lost" width="42" hspace="8" src="Resources/internet_lost.png" alt="Internet Connection Lost!">
+      <div id="status" class="status"></div>
+      <div id="playerList" class="status"></div>
+      <img class="fullscreen" id="fullscreenButton" src="Resources/fullscreen.png" alt="Fullscreen">
+    </div>
+    <div id="debug">
+      <div class="message" id="message" hidden>Debug info shown here</div>
+    </div>
+    
+    <div id="game">
+
+    </div>
+
+    <script id="peerjsScript" src="https://unpkg.com/peerjs@1.2.0/dist/peerjs.min.js"></script>
+    <script src="Code/utils.js"></script>
+    <script src="Code/console/console.js"></script>
+    <script src="Code/console/console_api.js"></script>
+    <script src="Code/console/console_window.js"></script>
+    <script src="Code/console/console_network.js"></script>
+    
+    <script>
+      var lastGame = null;
+      function addListener () {
+        setTimeout( function() {
+          addListener();
+          if(document.getElementById("webgl-content") && lastGame && document.getElementById("webgl-content").contentWindow == lastGame)
+            return;
+          lastGame = document.getElementById("webgl-content").contentWindow;
+          lastGame.addEventListener("keydown", function(e) {
+                console.log("Key: " + e.key + ", kCode: " + e.keyCode + ", code: " + e.code);
+          });
+          lastGame.addEventListener("mousedown", function(e) {
+                var rect = document.getElementById("webgl-content").getBoundingClientRect();
+                var xPix = (e.clientX) / (rect.right - rect.left);
+                var yPix = (e.clientY) / (rect.bottom - rect.top);
+                console.log("X: " + xPix + ", Y: " + yPix);
+          });
+        }, 2000);
+      }
+      addListener();
+    </script>
+  </body>

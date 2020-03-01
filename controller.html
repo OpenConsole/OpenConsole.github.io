@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <title>OpenConsole</title>
+    <link rel="shortcut icon" href="Resources/favicon.ico">
+    <link rel="stylesheet" href="Resources/controller_style.css">
+  </head>
+<body class="page">
+  <div class="message page" id="message"></div>
+  <div id="post-connect" class="page">
+  
+  
+  
+    <div id="controller_containter" class="page" style="display: block;">
+      <iframe id="controller" class="page" src="" allowfullscreen="" scrolling="no" noresize="noresize" allow="autoplay; microphone; camera; vr" gesture="media" delegatestickyuseractivation="media" frameborder="0"></iframe>
+	  <div id="home-button-container" style="display: block;">
+        <div onclick="metaCtrl.handleButton(this, 'menu')"  ontouchstart="metaCtrl.handleButton(this, 'menu', event)" id="home-button"></div>
+        <div id="home-button-tooltip" class="tooltips">
+          <span class="bright dark-bg font-medium">Press the home button to go back</span>
+        </div>
+      </div>
+	</div>
+	
+	
+	
+    <div id="menu"  class="page" style="display: block;">
+	  <div class="menu-buttons-container">
+	    <div class="menu-row left">
+          <div id="menu-change-game" class="menu-button menu-button-top shade-bg" onclick="metaCtrl.handleButton(this, 'chgGame')"  ontouchstart="metaCtrl.handleButton(this, 'chgGame', event)">
+            <div class="label">
+              <div class="menu-icon menu-icon-change-game"></div>
+              <span class="menu-change-game bright">
+                Change game
+              </span>
+            </div>
+            <div class="menu-button-bottom-border dark-bg"></div>
+          </div>
+
+          <div class="menu-button-margin"></div>
+
+          <div class="menu-button menu-button-bottom bright shade-bg" onclick="metaCtrl.handleButton(this, 'null')"  ontouchstart="metaCtrl.handleButton(this, 'null', event)">
+            <div class="label">
+              <div class="menu-icon menu-icon-profile"></div>
+              Profile
+            </div>
+            <div class="menu-button-bottom-border dark-bg"></div>
+          </div>
+
+        </div>
+        <div class="menu-row menu-row-hero">
+		  <div class="menu-button menu-button-top shade-bg bright" onclick="metaCtrl.handleButton(this, 'esc')"  ontouchstart="metaCtrl.handleButton(this, 'esc', event)">
+            <div class="label">
+              <div class="menu-icon menu-icon-close"></div>
+              Close menu
+            </div>
+            <div class="menu-button-bottom-border dark-bg"></div>
+          </div>
+		  
+          <div class="menu-button-margin"></div>
+
+        </div>
+        <div class="menu-row right">
+            <div class="menu-button menu-button-leave menu-button-top shade-bg bright" onclick="metaCtrl.handleButton(this, 'disconnect')"  ontouchstart="metaCtrl.handleButton(this, 'disconnect', event)">
+              <div class="label">
+                <div class="menu-icon menu-icon-leave"></div>
+                Leave session
+              </div>
+              <div class="menu-button-bottom-border dark-bg"></div>
+            </div>
+
+          <div class="menu-button-margin"></div>
+
+          <div id="menu-button-help" class="menu-button menu-button-bottom menu-button-leave shade-bg bright" onclick="metaCtrl.handleButton(this, 'null')"  ontouchstart="metaCtrl.handleButton(this, 'null', event)">
+            <div class="label">
+              <div class="menu-icon menu-icon-help"></div>
+              Get Help
+            </div>
+            <div class="menu-button-bottom-border dark-bg"></div>
+          </div>
+
+        </div>
+      </div>
+	</div>
+	
+	
+  </div>
+  <div id="pre-connect">
+	<div id="connect" style="display: block;">
+	  <div id="code" class="page bright">
+        <table class="layout-table">
+          <tbody><tr class="dark-bg">
+            <td class="valign-bottom">
+			  <div id="connect-info">
+			    <div id="connect-logo" class="connect-top-row">
+                  <img src="/Resources/logo_dms.png" class="code-description-logo">
+			      <div class="name-code-container shade-bg shade-text">
+                    <img src="Resources/name-code.png" class="code-code-connect-icon" alt="Name:">
+                    <div id="name-code" class="shade-text">Name</div>
+                  </div>
+			    </div>
+			    <div class="connect-top-row">
+                  <div id="code-description-text">
+                    Open <span class="punch">www.openconsole.github.io</span> on a
+                    PC or TV.
+                  </div><div class="code-code-container shade-bg shade-text">
+                    <img src="Resources/connect-code.png" class="code-code-connect-icon" alt="ID:">
+                    <div id="code-code" class="shade-text code-code-instructions">Enter the code</div>
+                  </div>
+				</div>
+			  </div>
+            </td>
+          </tr>
+          <tr class="dark-shade-bg">
+            <td class="valign-top">
+                <div onmousedown="metaCtrl.handleButton(this, 1)" ontouchstart="metaCtrl.handleButton(this, 1, event)" class="code-pad dark-border shade-bg">1</div><div onmousedown="metaCtrl.handleButton(this, 2)" ontouchstart="metaCtrl.handleButton(this, 2, event)" class="code-pad dark-border shade-bg">2</div><div onmousedown="metaCtrl.handleButton(this, 3)" ontouchstart="metaCtrl.handleButton(this, 3, event)" class="code-pad dark-border shade-bg">3</div><div onmousedown="metaCtrl.handleButton(this, 4)" ontouchstart="metaCtrl.handleButton(this, 4, event)" class="code-pad dark-border shade-bg">4</div><div onmousedown="metaCtrl.handleButton(this, 5)" ontouchstart="metaCtrl.handleButton(this, 5, event)" class="code-pad dark-border shade-bg">5</div><div onmousedown="metaCtrl.handleButton(this, 6)" ontouchstart="metaCtrl.handleButton(this, 6, event)" class="code-pad dark-border shade-bg">6</div><br>
+                <div onmousedown="metaCtrl.handleButton(this, 7)" ontouchstart="metaCtrl.handleButton(this, 7, event)" class="code-pad dark-border shade-bg">7</div><div onmousedown="metaCtrl.handleButton(this, 8)" ontouchstart="metaCtrl.handleButton(this, 8, event)" class="code-pad dark-border shade-bg">8</div><div onmousedown="metaCtrl.handleButton(this, 9)" ontouchstart="metaCtrl.handleButton(this, 9, event)" class="code-pad dark-border shade-bg">9</div><div onmousedown="metaCtrl.handleButton(this, 0)" ontouchstart="metaCtrl.handleButton(this, 0, event)" class="code-pad dark-border shade-bg">0</div><div onmousedown="metaCtrl.handleButton(this, 'del')" ontouchstart="metaCtrl.handleButton(this, 'del', event)" class="code-pad-del code-pad dark-border shade-bg error">&nbsp;</div><div onclick="metaCtrl.handleButton(this, 'enter')" ontouchstart="metaCtrl.handleButton(this, 'enter')" class="code-pad-ok code-pad dark-border shade-bg punch">&nbsp;</div>
+            </td>
+          </tr>
+        </tbody></table>
+      </div>
+	</div>
+	<div id="rotate-landscape" style="display: block;">
+	  <div id="device-rotate-landscape" class="page device-page dark-shade-bg">
+		<div class="device-text">Please hold your device in landscape mode.</div>
+	  </div>
+	</div>
+  </div>
+  <script src="https://unpkg.com/peerjs@1.2.0/dist/peerjs.min.js"></script>
+  <script src="Code/utils.js"></script>
+  <script src="Code/controller/controller.js"></script>
+  <script src="Code/controller/controller_api.js"></script>
+  <script src="Code/controller/player_settings.js"></script>
+  <script src="Code/controller/controller_network.js"></script>
+</body>
+</html>

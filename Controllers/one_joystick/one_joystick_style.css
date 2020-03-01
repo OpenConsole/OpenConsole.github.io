@@ -1,0 +1,128 @@
+* :not(input) {
+    -webkit-user-select:none;
+    -khtml-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
+    touch-action: manipulation;
+}
+body {
+	overflow	: hidden;
+	padding		: 0;
+	margin		: 0;
+	background-color: #172836;
+}
+
+.page {
+ position: absolute;
+ top: 0; bottom: 0; left: 0; right: 0;
+}
+
+.left-page {
+ position: relative; top: 0; left: 0;
+ width: 50vw; height: 100vh;
+}
+.right-page {
+ position: absolute; top: 0; right: 0;
+ width: 50vw; height: 100vh;
+ display:flex;
+ flex-direction: column-reverse;
+}
+
+.horDiv {
+ display:flex;
+}
+
+.button, .dpad-relative-container {
+ border-width: 25px;
+ border-style: solid;
+ border-color: #2a2a2a;
+ border-image: url('button-300-300.png') 25 25 25 25 fill;
+ color: white;
+ font-size: 32px;
+ font-weight: bold;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ background-color: #1e1e1e;
+ background-clip: content-box;
+}
+#top-button-split {
+  min-height: 27vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+.button {
+  flex-grow: 1;
+}
+.button.active {
+ border-image: url('button-300-300-active.png') 25 25 25 25 fill;
+ color: black;
+ background-color: #ccf400;
+}
+.button.disabled {
+ visibility: hidden;
+}
+
+.dpad-relative-container {
+ position: absolute; left: calc( 40% - 110px ); bottom: calc( 40% - 100px );
+ width: 50vmin; height: 50vmin;
+ min-width: 150px; min-height: 150px;
+}
+#dpad-1 {
+  min-width: 140%; min-height: 140%;
+}
+.dpad-relative-container.disabled {
+ visibility: hidden;
+}
+
+.dpad-relative {
+  background-image: url('dpad-relative.png');
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
+.dpad-arrow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  display: none;
+}
+.dpad-arrow-active {
+  display: block;
+}
+/* Relative arrows */
+.dpad-relative .dpad-arrow-down {
+  background-image: url('dpad-arrow-down.png');
+}
+
+.dpad-relative .dpad-arrow-left {
+  background-image: url('dpad-arrow-left.png');
+}
+
+.dpad-relative .dpad-arrow-right {
+  background-image: url('dpad-arrow-right.png');
+}
+
+.dpad-relative .dpad-arrow-up {
+  background-image: url('dpad-arrow-up.png');
+}
+
+.dpad-instructions {
+  color: white;
+  position: absolute;
+  left: 0px;
+  top: 50%;
+  width: 100%;
+  margin-top: -0.5em;
+  text-align: center;
+  font-size: 18px;
+}

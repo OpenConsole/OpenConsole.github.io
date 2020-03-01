@@ -1,0 +1,55 @@
+* :not(input) {
+    -webkit-user-select:none;
+    -khtml-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
+    touch-action: manipulation;
+}
+body {
+	overflow	: hidden;
+	padding		: 0;
+	margin		: 0;
+	background-color: #172836;
+}
+
+.page {
+ position: absolute; top: 0; right: 0; bottom: 0; left: 0;
+}
+
+.top-page {
+ position: absolute; top: 0; right: 0; left: 0;
+ height: 120px;
+}
+.bottom-page {
+ position: absolute; top: 120px; right: 0; bottom: 0; left: 0;
+}
+
+.horDiv {
+ display:flex;
+}
+
+.button {
+ border-width: 25px;
+ border-style: solid;
+ border-color: #2a2a2a;
+ border-image: url('button-300-300.png') 25 25 25 25 fill;
+ width: calc(50% - 50px); height: calc(100% - 50px);
+ color: white;
+ font-size: 32px;
+ font-weight: bold;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ background-color: #1e1e1e;
+ background-clip:content-box;
+}
+.button.active {
+ border-image: url('button-300-300-active.png') 25 25 25 25 fill;
+ color: black;
+ background-color: #ccf400;
+}
+.button.disabled {
+ visibility: hidden;
+}
